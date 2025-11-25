@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Loader2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import type { ChatMessage } from '../types/api';
 
 interface ChatInterfaceProps {
@@ -54,21 +56,14 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     adjustTextareaHeight();
   }, [inputMessage]);
 
-  const formatMessage = (content: string) => {
-    return content.split('\n').map((line, index) => (
-      <React.Fragment key={index}>
-        {line}
-        {index < content.split('\n').length - 1 && <br />}
-      </React.Fragment>
-    ));
-  };
+
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full" style={{ backgroundColor: '#0d1117' }}>
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin">
         {messages.length === 0 ? (
-          <div className="flex items-center justify-center h-full text-gray-500">
+          <div className="flex items-center justify-center h-full" style={{ color: '#6e7681' }}>
             <div className="text-center">
               <h2 className="text-2xl font-semibold mb-2">Welcome to Chat</h2>
               <p>Start a conversation by typing a message below.</p>
@@ -83,19 +78,27 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
               } message-enter`}
             >
               <div
-                className={`max-w-3xl px-4 py-3 rounded-lg ${
+                className="max-w-3xl px-4 py-3 rounded-lg shadow-sm"
+                style={
                   message.role === 'user'
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-white border border-gray-200 text-gray-900'
-                } shadow-sm`}
+                    ? { backgroundColor: '#1a5fb4', color: '#e6edf3' }
+                    : { backgroundColor: '#1c2128', border: '1px solid #30363d', color: '#e6edf3' }
+                }
               >
-                <div className="whitespace-pre-wrap break-words">
-                  {formatMessage(message.content)}
+                <div className="break-words">
+                  {message.role === 'user' ? (
+                    <div className="whitespace-pre-wrap">{message.content}</div>
+                  ) : (
+                    <div className="markdown-content">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {message.content}
+                      </ReactMarkdown>
+                    </div>
+                  )}
                 </div>
                 <div
-                  className={`text-xs mt-2 ${
-                    message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
-                  }`}
+                  className="text-xs mt-2"
+                  style={{ color: message.role === 'user' ? '#cdd9e5' : '#8b949e' }}
                 >
                   {new Date(message.timestamp).toLocaleTimeString()}
                 </div>
@@ -105,10 +108,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
         )}
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bg-white border border-gray-200 px-4 py-3 rounded-lg shadow-sm">
+            <div className="px-4 py-3 rounded-lg shadow-sm" style={{ backgroundColor: '#1c2128', border: '1px solid #30363d' }}>
               <div className="flex items-center space-x-2">
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span className="text-gray-600">AI is thinking...</span>
+                <Loader2 className="w-4 h-4 animate-spin" style={{ color: '#8b949e' }} />
+                <span style={{ color: '#8b949e' }}>AI is thinking...</span>
               </div>
             </div>
           </div>
@@ -118,13 +121,13 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
       {/* Error Display */}
       {error && (
-        <div className="px-4 py-2 bg-red-50 border-t border-red-200 text-red-700 text-sm">
+        <div className="px-4 py-2 border-t text-sm" style={{ backgroundColor: '#2d1519', borderColor: '#5d2127', color: '#ff7b72' }}>
           Error: {error}
         </div>
       )}
 
       {/* Input Area */}
-      <div className="border-t border-gray-200 bg-white p-4">
+      <div className="p-4" style={{ borderTop: '1px solid #30363d', backgroundColor: '#161b22' }}>
         <form onSubmit={handleSubmit} className="flex space-x-3">
           <div className="flex-1 relative">
             <textarea
@@ -133,15 +136,45 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Type your message..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none scrollbar-thin"
-              style={{ minHeight: '44px', maxHeight: '120px' }}
+              className="w-full px-4 py-3 rounded-lg resize-none scrollbar-thin"
+              style={{
+                minHeight: '44px',
+                maxHeight: '120px',
+                backgroundColor: '#1c2128',
+                border: '1px solid #30363d',
+                color: '#e6edf3',
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = '#1a5fb4';
+                e.currentTarget.style.outline = '2px solid rgba(26, 95, 180, 0.3)';
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = '#30363d';
+                e.currentTarget.style.outline = 'none';
+              }}
               disabled={isLoading}
             />
           </div>
           <button
             type="submit"
             disabled={!inputMessage.trim() || isLoading}
-            className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center min-w-[44px]"
+            className="px-4 py-2 rounded-lg transition-colors flex items-center justify-center min-w-[44px]"
+            style={{
+              backgroundColor: !inputMessage.trim() || isLoading ? '#21262d' : '#1a5fb4',
+              color: '#e6edf3',
+              cursor: !inputMessage.trim() || isLoading ? 'not-allowed' : 'pointer',
+              opacity: !inputMessage.trim() || isLoading ? 0.5 : 1,
+            }}
+            onMouseEnter={(e) => {
+              if (inputMessage.trim() && !isLoading) {
+                e.currentTarget.style.backgroundColor = '#155a9f';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (inputMessage.trim() && !isLoading) {
+                e.currentTarget.style.backgroundColor = '#1a5fb4';
+              }
+            }}
           >
             {isLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
