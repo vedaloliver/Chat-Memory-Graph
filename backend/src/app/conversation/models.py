@@ -1,9 +1,11 @@
+# src/app/conversation/models.py
+
 from typing import List, Optional, Dict, Any
 from uuid import uuid4
 from datetime import datetime
 
 from pydantic import BaseModel, Field
-from src.app.core.llm_client import ChatMessage
+from src.app.llm import ChatMessage
 
 
 class MessageWithTimestamp(ChatMessage):

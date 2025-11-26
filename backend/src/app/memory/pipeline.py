@@ -4,8 +4,8 @@ from typing import Dict, Any, Optional, List
 
 from sqlalchemy.orm import Session
 
-from src.app.core.conversation_store import Conversation
-from src.app.core.llm_client import LlmClient, AppError
+from src.app.conversation.db_conversation_store import Conversation
+from src.app.llm import LlmClient, AppError
 from src.app.core.logging_utils import get_logger
 
 from .chunking import get_latest_user_assistant_pair, create_memory_chunk

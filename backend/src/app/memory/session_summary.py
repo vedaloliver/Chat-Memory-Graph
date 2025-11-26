@@ -5,7 +5,7 @@ from typing import Any, Dict
 
 from sqlalchemy.orm import Session
 
-from src.app.core.conversation_store import Conversation
+from src.app.conversation import Conversation
 from src.app.models.database_models import SessionSummaryModel
 
 

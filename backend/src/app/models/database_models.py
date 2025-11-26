@@ -29,7 +29,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 
-from src.app.core.database import Base
+from src.app.db.session import Base
 
 
 # ---------------------------------------------------------------------------

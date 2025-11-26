@@ -6,7 +6,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 from uuid import uuid4
 
-from src.app.core.llm_client import ChatMessage
+from src.app.llm import ChatMessage
 from src.app.models.database_models import ConversationModel, MessageModel
 from src.app.conversation.models import Conversation, MessageWithTimestamp
 

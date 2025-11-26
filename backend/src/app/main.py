@@ -4,8 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.app.api.routes_chat import router as chat_router
 from src.app.core.config import get_settings
-from src.app.core.llm_client import AppError
-from src.app.core.database import init_db
+from src.app.llm import AppError
+from src.app.db.init_db import init_db
 
 # Get application settings
 settings = get_settings()

@@ -5,7 +5,7 @@ from typing import Dict, Optional
 
 from sqlalchemy.orm import Session
 
-from src.app.core.conversation_store import Conversation, MessageWithTimestamp
+from src.app.conversation import Conversation, MessageWithTimestamp
 from src.app.models.database_models import SessionSummaryModel, MemoryChunkModel
 
 

@@ -12,19 +12,15 @@ DESC_USE_DB = (
     "Whether to use the database storage (True) or in-memory storage (False)"
 )
 
-from src.app.core.llm_client import LlmClient, get_llm_client, AppError, ChatMessage
-from src.app.core.conversation_store import (
-    ConversationStore,
-    Conversation,
-    MessageWithTimestamp,
-)
-from src.app.core.conversation_store import get_conversation_store
-from src.app.core.database import get_db
-from src.app.core.db_conversation_store import (
+from src.app.llm import LlmClient, get_llm_client, AppError, ChatMessage
+from src.app.conversation import Conversation, get_conversation_store
+from src.app.conversation.db_conversation_store import (
     get_db_conversation_store,
     DbConversationStore,
 )
-from src.app.core.memory_service import update_memory_after_turn
+from src.app.db.session import get_db
+
+from src.app.memory import update_memory_after_turn
 from src.app.core.logging_utils import get_logger
 from src.app.models.chat import (
     ChatRequest,
@@ -32,9 +28,7 @@ from src.app.models.chat import (
     ConversationMetadata,
     ConversationsResponse,
     ConversationDetail,
-    ConversationMessage,
-    ConversationUpdateRequest,
-    ConversationExport,
+    ConversationMessage
 )
 
 router = APIRouter()
