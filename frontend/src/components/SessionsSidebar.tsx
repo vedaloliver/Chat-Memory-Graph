@@ -110,35 +110,50 @@ const SessionsSidebar: React.FC<SessionsSidebarProps> = ({
           
           return (
             <div className="p-2 space-y-1">
-              {conversations.map((conversation) => (
-                <button
-                  key={conversation.id}
-                  onClick={() => onConversationSelect(conversation.id)}
-                  className={`w-full text-left p-3 rounded-lg transition-colors group ${
-                    currentConversationId === conversation.id
-                      ? 'bg-primary-600 text-white'
-                      : 'hover:bg-gray-800 text-gray-300'
-                  }`}
-                >
-                  <div className="flex items-start space-x-3">
-                    <MessageCircle className="w-4 h-4 mt-1 flex-shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium text-sm truncate">
-                        {getConversationTitle(conversation)}
-                      </div>
-                      <div className="flex items-center space-x-2 mt-1">
-                        <Calendar className="w-3 h-3" />
-                        <span className="text-xs opacity-75">
-                          {formatDate(conversation.updated_at)}
-                        </span>
-                        <span className="text-xs opacity-75">
-                          • {conversation.message_count} messages
-                        </span>
+              {conversations.map((conversation) => {
+                const isActive = currentConversationId === conversation.id;
+                return (
+                  <button
+                    key={conversation.id}
+                    onClick={() => onConversationSelect(conversation.id)}
+                    style={{
+                      backgroundColor: isActive ? '#1c2d41' : 'transparent',
+                      color: isActive ? '#e6edf3' : '#6e7681',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor = '#21262d';
+                        e.currentTarget.style.color = '#adbac7';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = '#6e7681';
+                      }
+                    }}
+                    className="w-full text-left p-3 rounded-lg transition-colors group"
+                  >
+                    <div className="flex items-start space-x-3">
+                      <MessageCircle className="w-4 h-4 mt-1 flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-sm truncate">
+                          {getConversationTitle(conversation)}
+                        </div>
+                        <div className="flex items-center space-x-2 mt-1">
+                          <Calendar className="w-3 h-3" />
+                          <span className="text-xs opacity-75">
+                            {formatDate(conversation.updated_at)}
+                          </span>
+                          <span className="text-xs opacity-75">
+                            • {conversation.message_count} messages
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                );
+              })}
             </div>
           );
         })()}

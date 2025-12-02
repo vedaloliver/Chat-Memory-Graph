@@ -18,7 +18,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from src.app.core.database import Base
+from src.app.db.session import Base
 from src.app.models.database_models import ConversationModel, MessageModel, TagModel
 target_metadata = Base.metadata
 

@@ -1,0 +1,254 @@
+/* GraphView Component Styles */
+
+/* Node Styles */
+.graph-node {
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 3px solid;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  min-width: 200px;
+  max-width: 280px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.graph-node-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.graph-node-icon {
+  flex-shrink: 0;
+}
+
+.graph-node-label {
+  font-weight: 700;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.graph-node-details {
+  font-size: 12px;
+  margin-top: 6px;
+  opacity: 0.85;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Session Node */
+.graph-node-session {
+  background-color: #1e40af;
+  border-color: #3b82f6;
+  color: #dbeafe;
+}
+
+/* Entity Node */
+.graph-node-entity {
+  background-color: #166534;
+  border-color: #22c55e;
+  color: #dcfce7;
+}
+
+/* Triple Node */
+.graph-node-triple {
+  background-color: #6b21a8;
+  border-color: #a855f7;
+  color: #f3e8ff;
+}
+
+/* Chunk Node */
+.graph-node-chunk {
+  background-color: #c2410c;
+  border-color: #f97316;
+  color: #fed7aa;
+}
+
+/* Graph Container */
+.graph-view-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #0d1117;
+}
+
+/* Header */
+.graph-header {
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.graph-header-content h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #e6edf3;
+  margin: 0;
+}
+
+.graph-header-content p {
+  font-size: 14px;
+  color: #8b949e;
+  margin-top: 4px;
+}
+
+/* Legend */
+.graph-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+}
+
+.graph-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #e6edf3;
+}
+
+.graph-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.legend-session { background-color: #3b82f6; }
+.legend-entity { background-color: #22c55e; }
+.legend-triple { background-color: #a855f7; }
+.legend-chunk { background-color: #f97316; }
+
+/* Session Controls */
+.graph-session-controls {
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.graph-session-controls-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e6edf3;
+}
+
+.session-toggle-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  border: 1px solid;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #e6edf3;
+}
+
+.session-toggle-button.expanded {
+  background-color: #1e3a8a;
+  border-color: #3b82f6;
+  color: #dbeafe;
+}
+
+.session-toggle-button:not(.expanded) {
+  background-color: #21262d;
+  border-color: #30363d;
+  color: #8b949e;
+}
+
+.session-toggle-button:hover {
+  border-color: #3b82f6;
+  color: #e6edf3;
+}
+
+/* Graph Canvas */
+.graph-canvas {
+  flex: 1;
+  position: relative;
+}
+
+/* Override ReactFlow default styles for better visibility */
+.react-flow__edge {
+  z-index: 1 !important;
+}
+
+.react-flow__node {
+  z-index: 10 !important;
+}
+
+.react-flow__edge-path {
+  stroke-width: 2.5px !important;
+}
+
+.react-flow__edge-text {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  fill: #e6edf3 !important;
+}
+
+.react-flow__edge-textbg {
+  fill: #7c3aed !important;
+  opacity: 0.95 !important;
+  rx: 6 !important;
+  ry: 6 !important;
+}
+
+/* Make sure edges render behind nodes but are still very visible */
+.react-flow__edges {
+  z-index: 1 !important;
+}
+
+.react-flow__nodes {
+  z-index: 10 !important;
+}
+
+/* Force edges to be visible */
+.react-flow__edge-path {
+  stroke-opacity: 0.85 !important;
+}
+
+/* Handle styling */
+.react-flow__handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: #8b949e !important;
+  border: 2px solid #30363d !important;
+}
+
+.react-flow__handle:hover {
+  background: #c9d1d9 !important;
+}
+
+/* ReactFlow controls styling */
+.react-flow__controls {
+  background-color: #161b22 !important;
+  border: 1px solid #30363d !important;
+}
+
+.react-flow__controls-button {
+  background-color: #21262d !important;
+  border-bottom: 1px solid #30363d !important;
+  color: #e6edf3 !important;
+}
+
+.react-flow__controls-button:hover {
+  background-color: #30363d !important;
+}
+
+/* MiniMap styling */
+.react-flow__minimap {
+  background-color: #161b22 !important;
+  border: 1px solid #30363d !important;
+}

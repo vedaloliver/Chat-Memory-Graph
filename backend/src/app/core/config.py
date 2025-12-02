@@ -1,6 +1,5 @@
 import os
 from functools import lru_cache
-
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
